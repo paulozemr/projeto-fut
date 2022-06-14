@@ -6,38 +6,33 @@ export default {
       novo_time: "",
       times: [
         {
-          id: "0a9733d5-fc4f-4eb2-8f96-9b0c3e2a588b",
-          name: "Time 1",
-          actions: "heheha",
-        },
-        {
-          id: "68ca4aa5-ef03-4956-ae95-26a82f98d8a8",
-          name: "Time 2",
-          actions: "grr",
-        },
-        {
-          id: "d5fac18f-f22d-406d-a81a-d6600ea6262c",
-          name: "Time 3",
-          actions: "heheahash",
-        },
-        {
-          id: "853a1c68-cd8d-490d-98bd-a0ce80728dff",
-          name: "Time 4",
-          actions: "heasheas",
+          id: "",
+          name: "Informe o seu time!",
+          actions: "",
         },
       ],
     };
   },
   methods: {
-    salvar() {
-      const id = uuid();
-      this.times.push({
-        id,
-        name: this.novo_time,
-      });
+     salvar() {
+      if (this.novo_time !== "") {
+        const novo_id = uuid();
+        this.times.push({
+          id: novo_id,
+          name: this.novo_time,
+        });
+        this.novo_time = "";
+      } else {
+        alert("Informe um time!");
+      }
+    },
+    excluir(time) {
+      const indice = this.times.indexOf(time);
+      this.times.splice(indice, 1);
     },
   },
 };
+    
 </script>
 <template>
   <div class="container">
@@ -61,13 +56,17 @@ export default {
             <th>ID</th>
             <th>Nome</th>
             <th>Ações</th>
+            <th></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="time in times" :key="time.id">
             <th>{{ time.id }}</th>
             <th>{{ time.name }}</th>
-            <th>hehe</th>
+            <th></th>
+            <th><button>Reescrever</button></th>
+            <th><button @click="excluir (time)">Excluir</button></th>
           </tr>
         </tbody>
       </table>

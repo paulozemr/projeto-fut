@@ -7,15 +7,16 @@ export default {
       novo_jogador: "",
       n_camisa: "",
       jogadores: [
-        { id: 1, name: "Filipe", n_camisa: "10", time: "Vasco", funct: "Atacante" },
-        { id: 2, name: "Paulo", n_camisa: "11", time: "Vasco", funct: "Goleiro" },
-        { id: 3, name: "Nicolau", n_camisa: "12", time: "Vasco", funct: "Centro-avante" },
-        { id: 4, name: "Guilherme", n_camisa: "13", time: "Vasco", funct: "Zagueiro" },
+        { id: 1, name: "Filipe", n_camisa: "10", time: "Vasco", funct: "" },
+        { id: 2, name: "Paulo", n_camisa: "11", time: "Vasco", funct: "" },
+        { id: 3, name: "Nicolau", n_camisa: "12", time: "Vasco", funct: "" },
+        { id: 4, name: "Guilherme", n_camisa: "13", time: "Vasco", funct: "" },
       ],
     };
   },
   methods: {
     salvar() {
+     if (this.novo_jogador !== "") {
       const id = uuid();
       this.jogadores.push({
         id: id,
@@ -23,8 +24,18 @@ export default {
         time: this.novo_time,
         n_camisa: this.n_camisa
       });
+      this.novo_jogador = "";
+      this.novo_time = "";
+      this.n_camisa = "";
+      } else {
+      alert("Informe as coisas!") 
+      } 
+     },
+   excluir(jogador) {
+      const indice = this.jogadores.indexOf(jogador);
+      this.jogadores.splice(indice, 1);
     },
-  },
+},
 };
 </script>
 <template>
@@ -63,8 +74,11 @@ export default {
                 <option>Atacante</option>
                 <option>Centro-Avante</option>
                 <option>Goleiro</option>
+                <option>Volante</option>
+                <option>Meia</option>
+                <option>Lateral</option>
               </select></th>
-              <th><button>Excluir</button></th>
+              <th><button @click="excluir">Excluir</button></th>
             </tr>
           </tbody>
         </table>
